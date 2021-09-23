@@ -10,9 +10,22 @@ void main()
     ),
   ));
 }
-class HomePage extends StatelessWidget {
-  const HomePage({ Key? key }) : super(key: key);
+class HomePage extends StatefulWidget {
+ 
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  TextEditingController _textController = TextEditingController();
+  var myText = 'Change me';
+
+  @override
+  void initState() {
+    super.initState();
+    
+  }
   @override
   Widget build(BuildContext context) {
     // return Container(
@@ -22,10 +35,42 @@ class HomePage extends StatelessWidget {
     // );
 
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         title: Text('Awesome App'),
       ),
-      body: Container(),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Card(
+            child: Column(
+              children: <Widget>[
+                Image.asset('assets/bg.jpg',
+                fit: BoxFit.cover,),
+                SizedBox(height: 20,),
+                Text(
+                  myText ,
+                style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 20,),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: TextField(
+                    controller: _textController,
+                    keyboardType: TextInputType.text,
+                    // obscureText: true,//for passwords
+                    decoration: InputDecoration(
+                      labelText: 'Name',
+                      border: OutlineInputBorder(),
+                      hintText: 'Enter your name here'
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       drawer: Drawer(
         child: ListView(
@@ -67,8 +112,13 @@ class HomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
-        child: Icon(Icons.edit),
+        onPressed: (){
+          myText = _textController.text;
+          setState(() {
+            
+          });
+        },
+        child: Icon(Icons.refresh),
         // mini: true,
 
       ),
